@@ -1,0 +1,30 @@
+plugins {
+    id 'nebula.plugin-plugin' version '16.1.0'
+    id 'java'
+}
+
+group 'com.github.balao7'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+dependencies {
+    compileOnly 'com.gradle:gradle-enterprise-gradle-plugin:3.3.4'
+    implementation gradleApi()
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+pluginBundle {
+    plugins {
+        constraintsPlugin {
+            id = 'jetstack.constraints-plugin'
+            displayName = 'Jetstack Constraints Plugin'
+            description = 'Constraints gradle plugin for enabling and auto configure project settings and sub-modules.'
+            tags = ['jetstack', 'plugin']
+        }
+    }
+}
