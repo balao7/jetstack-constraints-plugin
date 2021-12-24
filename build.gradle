@@ -1,9 +1,17 @@
 plugins {
-    id 'nebula.plugin-plugin' version '16.1.0'
+    // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
+    id 'java-gradle-plugin'
+    // Alternatively apply other plugins, e.g. the kotlin plugin for a plugin written in Kotlin
+    // or the groovy plugin if the plugin uses Groovy
     id 'java'
+
+    // Apply the Plugin Publish Plugin to make plugin publication possible
+    id "com.gradle.plugin-publish" version "0.18.0"
+    // Apply the Maven Publish Plugin to have it generate the publication metadata
+    id 'maven-publish'
 }
 
-group 'com.github.balao7'
+group 'io.github.balao7'
 version '1.0.0'
 
 repositories {
@@ -18,10 +26,23 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
-pluginBundle {
+// Use java-gradle-plugin to generate plugin descriptors and specify plugin ids
+gradlePlugin {
     plugins {
         constraintsPlugin {
-            id = 'jetstack.constraints-plugin'
+            id = 'io.github.balao7.jetstack.constraints-plugin'
+            implementationClass = 'jetstack.constraints.plugin.JetstackConstraintsPlugin'
+        }
+    }
+}
+
+pluginBundle {
+    website = 'https://github.com/balao7/jetstack-constraints-plugin'
+    vcsUrl = 'https://github.com/balao7/jetstack-constraints-plugin'
+    description = 'Constraints gradle plugin for enabling and auto configure project settings and sub-modules.'
+
+    plugins {
+        constraintsPlugin {
             displayName = 'Jetstack Constraints Plugin'
             description = 'Constraints gradle plugin for enabling and auto configure project settings and sub-modules.'
             tags = ['jetstack', 'plugin']
